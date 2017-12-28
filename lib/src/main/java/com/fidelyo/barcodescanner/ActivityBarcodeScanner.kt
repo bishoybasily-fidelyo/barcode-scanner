@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.support.v7.app.AppCompatActivity
+import android.util.DisplayMetrics
 import android.view.SurfaceHolder
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
@@ -21,6 +22,19 @@ class ActivityBarcodeScanner : AppCompatActivity(), Detector.Processor<Barcode> 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        barcodeDetector = BarcodeDetector.Builder(this@ActivityBarcodeScanner)
+                .setBarcodeFormats(Barcode.ALL_FORMATS)
+                .build()
+
+        cameraSource = CameraSource.Builder(this@ActivityBarcodeScanner, barcodeDetector)
+                .setAutoFocusEnabled(true)
+                .setRequestedPreviewSize(displayMetrics.heightPixels, displayMetrics.widthPixels)
+                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                .build()
 
         setContentView(R.layout.activity_barcode_scanner)
         supportActionBar?.hide()
@@ -49,8 +63,10 @@ class ActivityBarcodeScanner : AppCompatActivity(), Detector.Processor<Barcode> 
     }
 
     override fun receiveDetections(detections: Detector.Detections<Barcode>) {
-        val barcode: Barcode? = detections.detectedItems.asList().first()
-        if (barcode != null) {
+        val list = detections.detectedItems.asList()
+        if (list.isNotEmpty()) {
+
+            val barcode = list.first()
 
             val code = Code()
             code.value = barcode.rawValue

@@ -15,7 +15,7 @@ class BarcodeScanner {
 
     private val TAG = javaClass.simpleName
 
-    fun scan(activity: Activity): Observable<String> {
+    fun scan(activity: Activity): Observable<Code> {
         return Observable.create { e ->
             getFragment(activity).setEmitter(e).startActivityForResult(Intent(activity, ActivityBarcodeScanner::class.java), CODE)
         }
@@ -23,25 +23,25 @@ class BarcodeScanner {
 
     private fun getFragment(activity: Activity): BarcodeScannerFragment {
         val fragmentManager = activity.fragmentManager
-        var fragment: BarcodeScannerFragment? = fragmentManager.findFragmentByTag(TAG) as BarcodeScannerFragment
+        var fragment = fragmentManager.findFragmentByTag(TAG)
         if (fragment == null) {
             fragment = BarcodeScannerFragment()
             fragmentManager.beginTransaction().add(fragment, TAG).commitAllowingStateLoss()
             fragmentManager.executePendingTransactions()
         }
-        return fragment
+        return fragment as BarcodeScannerFragment
     }
 
     class BarcodeScannerFragment : Fragment() {
 
-        private var emitter: ObservableEmitter<String>? = null
+        private var emitter: ObservableEmitter<Code>? = null
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             retainInstance = true
         }
 
-        fun setEmitter(emitter: ObservableEmitter<String>): BarcodeScannerFragment {
+        fun setEmitter(emitter: ObservableEmitter<Code>): BarcodeScannerFragment {
             this.emitter = emitter
             return this
         }
@@ -52,7 +52,7 @@ class BarcodeScanner {
                 if (requestCode == BarcodeScanner.CODE) {
                     if (data != null) {
                         if (emitter != null) {
-                            emitter!!.onNext(data.getStringExtra(EXTRA))
+                            emitter!!.onNext(data.getSerializableExtra(EXTRA) as Code)
                             emitter!!.onComplete()
                         }
                     }

@@ -3,8 +3,10 @@ package com.fidelyo.sample
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.fidelyo.barcodescanner.BarcodeScanner
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,6 +18,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
+
+            BarcodeScanner().scan(this@MainActivity).subscribe { Log.w("##", it.value + ", " + it.format) }
+
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }

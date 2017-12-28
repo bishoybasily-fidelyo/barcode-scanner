@@ -2,11 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fidelyo.barcodescanner">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application>
         <activity
             android:name=".ActivityBarcodeScanner"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_barcode_scanner"
             android:theme="@style/FullscreenTheme" />
     </application>
 
