@@ -10,28 +10,37 @@ import io.reactivex.Observable
 
 class BarcodeScanner {
 
-    private val TAG = javaClass.simpleName
+    fun with(activity: Activity): Scanner {
+        return Scanner(activity)
+    }
 
-    fun scan(activity: Activity): Observable<Code> {
-        return Observable.create { e ->
-            getFragment(activity).setEmitter(e).startActivityForResult(Intent(activity, ActivityBarcodeScanner::class.java), CODE)
+    open class Scanner(val activity: Activity) {
+
+        fun scan(): Observable<Code> {
+            return Observable.create { e ->
+                getFragment(activity).setEmitter(e).startActivityForResult(Intent(activity, ActivityBarcodeScanner::class.java), CODE)
+            }
+        }
+
+        private fun getFragment(activity: Activity): BarcodeScannerFragment {
+            val fragmentManager = activity.fragmentManager
+            var fragment = fragmentManager.findFragmentByTag(BarcodeScannerFragment.TAG)
+            if (fragment == null) {
+                fragment = BarcodeScannerFragment()
+                fragmentManager
+                        .beginTransaction()
+                        .add(fragment, BarcodeScannerFragment.TAG)
+                        .commitAllowingStateLoss()
+                fragmentManager.executePendingTransactions()
+            }
+            return fragment as BarcodeScannerFragment
         }
     }
 
-    private fun getFragment(activity: Activity): BarcodeScannerFragment {
-        val fragmentManager = activity.fragmentManager
-        var fragment = fragmentManager.findFragmentByTag(TAG)
-        if (fragment == null) {
-            fragment = BarcodeScannerFragment()
-            fragmentManager.beginTransaction().add(fragment, TAG).commitAllowingStateLoss()
-            fragmentManager.executePendingTransactions()
-        }
-        return fragment as BarcodeScannerFragment
-    }
 
     companion object {
 
-        val CODE = 987654321
-        val EXTRA = "extra"
+        val CODE = 41
+        val EXTRA = "extra_code"
     }
 }

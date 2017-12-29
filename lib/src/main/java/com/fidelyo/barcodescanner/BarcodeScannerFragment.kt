@@ -34,4 +34,8 @@ class BarcodeScannerFragment : Fragment() {
         }
     }
 
+    companion object {
+        val TAG = javaClass.simpleName
+    }
+
 }

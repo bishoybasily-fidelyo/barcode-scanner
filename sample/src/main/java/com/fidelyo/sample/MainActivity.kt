@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
 
-            BarcodeScanner().scan(this@MainActivity).subscribe { Log.w("##", it.value + ", " + it.format) }
+            BarcodeScanner().with(this).scan().subscribe { Log.w("##", it.value + ", " + it.format) }
 
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
