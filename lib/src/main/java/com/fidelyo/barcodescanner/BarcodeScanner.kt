@@ -16,6 +16,8 @@ class BarcodeScanner {
 
     open class Scanner(val activity: Activity) {
 
+        val TAG = javaClass.simpleName
+
         fun scan(): Observable<Code> {
             return Observable.create { e ->
                 getFragment(activity).setEmitter(e).startActivityForResult(Intent(activity, ActivityBarcodeScanner::class.java), CODE)
@@ -24,12 +26,12 @@ class BarcodeScanner {
 
         private fun getFragment(activity: Activity): BarcodeScannerFragment {
             val fragmentManager = activity.fragmentManager
-            var fragment = fragmentManager.findFragmentByTag(BarcodeScannerFragment.TAG)
+            var fragment = fragmentManager.findFragmentByTag(TAG)
             if (fragment == null) {
                 fragment = BarcodeScannerFragment()
                 fragmentManager
                         .beginTransaction()
-                        .add(fragment, BarcodeScannerFragment.TAG)
+                        .add(fragment, TAG)
                         .commitAllowingStateLoss()
                 fragmentManager.executePendingTransactions()
             }
