@@ -2,16 +2,16 @@
 
 buildscript {
     ext {
-        play_services_version = '11.8.0'
-        support_library_version = '27.0.2'
-        kotlin_version = '1.2.10'
+        play_services_version = '15.0.2'
+        support_library_version = '27.1.1'
+        kotlin_version = '1.2.41'
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
