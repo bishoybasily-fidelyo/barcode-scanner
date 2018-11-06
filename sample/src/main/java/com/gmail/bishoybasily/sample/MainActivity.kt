@@ -1,13 +1,11 @@
-package com.fidelyo.sample
+package com.gmail.bishoybasily.sample
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.fidelyo.barcodescanner.BarcodeScanner
-
+import androidx.appcompat.app.AppCompatActivity
+import com.gmail.bishoybasily.barcodescanner.BarcodeScanner
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
             BarcodeScanner().with(this).scan().subscribe { Log.w("##", it.value + ", " + it.format) }
 
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            com.google.android.material.snackbar.Snackbar.make(view, "Replace with your own action", com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
     }

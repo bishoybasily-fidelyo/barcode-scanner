@@ -1,4 +1,4 @@
-package com.fidelyo.barcodescanner
+package com.gmail.bishoybasily.barcodescanner
 
 import android.util.SparseArray
 

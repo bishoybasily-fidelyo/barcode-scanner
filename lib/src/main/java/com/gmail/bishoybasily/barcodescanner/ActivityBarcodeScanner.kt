@@ -1,12 +1,12 @@
-package com.fidelyo.barcodescanner
+package com.gmail.bishoybasily.barcodescanner
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
 import android.view.SurfaceHolder
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode

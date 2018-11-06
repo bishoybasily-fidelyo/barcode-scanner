@@ -1,4 +1,4 @@
-package com.fidelyo.barcodescanner
+package com.gmail.bishoybasily.barcodescanner
 
 import com.google.zxing.BarcodeFormat
 

@@ -1,4 +1,4 @@
-package com.fidelyo.barcodescanner
+package com.gmail.bishoybasily.barcodescanner
 
 import android.app.Activity
 import android.app.Fragment
